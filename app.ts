@@ -31,7 +31,8 @@ intents.matches("Greeting", [
         .buttons([
             builder.CardAction.postBack(session, "What are you open?", "Show Opening Times"),
             builder.CardAction.postBack(session, "I want to make an order?", "Make an order"),
-            builder.CardAction.postBack(session, "What is your phone number?", "Call us")
+            builder.CardAction.postBack(session, "What is your phone number?", "Call us"),
+            builder.CardAction.postBack(session, "I want to send a message", "Send us a message")
         ]);
 
         var message = new builder.Message(session).addAttachment(card);
@@ -69,3 +70,16 @@ intents.matches("PhoneNumber", [
         session.send("Our phone number is: 07982 628 199");
     }
 ]);
+
+intents.matches("SendMessage", [
+    (session, args, next) => {
+        builder.Prompts.text(session, "No problem, I can pass that on for you, what is it you wanted to say?");
+    },
+    (session, results, next) => {
+        if (results.response) {
+            session.send("Thanks, I have passed that information to our staff.");
+        } else {
+            next();
+        }
+    }
+])
