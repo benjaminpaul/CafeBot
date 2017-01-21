@@ -25,6 +25,7 @@ intents.matches("Greeting", [
             .buttons([
             builder.CardAction.postBack(session, "What are you open?", "Show Opening Times"),
             builder.CardAction.postBack(session, "I want to make an order?", "Make an order"),
+            builder.CardAction.postBack(session, "What is your phone number?", "Call us")
         ]);
         var message = new builder.Message(session).addAttachment(card);
         session.send(message);
@@ -46,11 +47,16 @@ intents.matches("TakeOrder", [
     },
     function (session, results, next) {
         if (results.response) {
-            session.send("I heard" + results.response);
+            session.send("I heard: " + results.response);
         }
         else {
             next();
         }
+    }
+]);
+intents.matches("PhoneNumber", [
+    function (session, args, next) {
+        session.send("Our phone number is: 07982 628 199");
     }
 ]);
 //# sourceMappingURL=app.js.map
