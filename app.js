@@ -23,10 +23,12 @@ intents.matches("Greeting", [
 ]);
 intents.matches("OpeningTimes", [
     function (session, args, next) {
-        session.send("No problem, here are our opening times:");
+        session.send("Let just grab our opening times for you...");
+        var s = "";
         data.openingTimes.forEach(function (openingTime) {
-            session.send(openingTime.dayOfWeek + ": " + openingTime.openFrom + " - " + openingTime.openTo);
+            s = s + openingTime.dayOfWeek + ": " + openingTime.openFrom + " - " + openingTime.openTo + "\n\n";
         });
+        session.send(s);
     }
 ]);
 intents.matches("TakeOrder", [
