@@ -29,7 +29,8 @@ intents.matches("Greeting", [
         .subtitle("126 Church Road, Bristol.")
         .text("Hello there, thanks for getting in touch! - What can I help you with?")
         .buttons([
-            builder.CardAction.postBack(session, "What are you open?", "Show Opening Times")
+            builder.CardAction.postBack(session, "What are you open?", "Show Opening Times"),
+            builder.CardAction.postBack(session, "I want to make an order?", "Make an order"),
         ]);
 
         var message = new builder.Message(session).addAttachment(card);
@@ -51,6 +52,13 @@ intents.matches("OpeningTimes", [
 
 intents.matches("TakeOrder", [
     (session, args, next) => {
-        session.send("I can take your order...");
+        builder.Prompts.text(session, "What would you like to order?");
+    },
+    (session, results, next) => {
+        if (results.response)  {
+            session.send("I heard" + results.response);
+        } else {
+            next();
+        }
     }
 ])
