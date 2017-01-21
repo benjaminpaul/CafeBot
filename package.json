@@ -1,0 +1,16 @@
+{
+  "name": "cafebot",
+  "version": "1.0.0",
+  "description": "AI Chatbot for cafes",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Benjamin Paul",
+  "license": "ISC",
+  "dependencies": {
+    "@types/restify": "^2.0.38",
+    "botbuilder": "^3.5.3",
+    "restify": "^4.3.0"
+  }
+}
