@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "@types/restify": "^2.0.38",
+    "@types/sendgrid": "^2.0.31",
     "botbuilder": "^3.5.3",
-    "restify": "^4.3.0"
+    "restify": "^4.3.0",
+    "sendgrid": "^4.7.1"
   }
 }

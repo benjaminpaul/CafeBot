@@ -1,6 +1,25 @@
 import * as restify from "restify";
 import * as builder from "botbuilder";
 import * as data from "./data";
+import * as sendgrid from "sendgrid";
+
+function sendEmail(toAddress: string, text: string) {
+    var to = new sendgrid.mail.Email(toAddress);
+    var from = new sendgrid.mail.Email("emails@onebadandroid.ai");
+    var subject = "New order from " + process.env.CAFE_NAME;
+    var content = new sendgrid.mail.Content('text/plain', 'Hello, Email!');
+    var mail = new sendgrid.mail.Mail(from, subject, to, content);
+    var sg = sendgrid("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");
+
+    var r = sg.emptyRequest();
+    r.method = "POST";
+    r.path = "v3/mail/send";
+    r.body = mail.toJSON();
+
+    sg.API(r, (response) => {
+        
+    });
+}
 
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
@@ -73,6 +92,7 @@ intents.matches("TakeOrder", [
     (session, results, next) => {
         if (results.response)  {
             session.send("I heard: " + results.response);
+            sendEmail("benjaminpaul1984@googlemail.com", results.resonse);
         } else {
             next();
         }
