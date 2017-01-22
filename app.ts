@@ -5,7 +5,7 @@ import * as sendgrid from "sendgrid";
 
 function sendEmail(toAddress: string, text: string) {
     var to = new sendgrid.mail.Email(toAddress);
-    var from = new sendgrid.mail.Email("orders@onebadandroid.ai");
+    var from = new sendgrid.mail.Email("benjaminpaul1984@googlemail.com");
     var subject = "NEW ORDER: " + process.env.CAFE_NAME;
     var content = new sendgrid.mail.Content('text/plain', text);
     var mail = new sendgrid.mail.Mail(from, subject, to, content);
@@ -92,7 +92,7 @@ intents.matches("TakeOrder", [
     (session, results, next) => {
         if (results.response)  {
             session.send("Thanks, I have sent that order to our staff and it will be ready for you in around 30 minutes.")
-            sendEmail("benjaminpaul1984@googlemail.com", results.response);
+            sendEmail("ben.paul@just-eat.com", results.response);
         } else {
             next();
         }
