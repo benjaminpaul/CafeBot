@@ -5,20 +5,22 @@ import * as sendgrid from "sendgrid";
 
 function sendEmail(toAddress: string, text: string) {
     var to = new sendgrid.mail.Email(toAddress);
-    var from = new sendgrid.mail.Email("emails@onebadandroid.ai");
-    var subject = "New order from " + process.env.CAFE_NAME;
-    var content = new sendgrid.mail.Content('text/plain', 'Hello, Email!');
+    var from = new sendgrid.mail.Email("orders@onebadandroid.ai");
+    var subject = "NEW ORDER: " + process.env.CAFE_NAME;
+    var content = new sendgrid.mail.Content('text/plain', text);
     var mail = new sendgrid.mail.Mail(from, subject, to, content);
     var sg = sendgrid("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");
 
     var r = sg.emptyRequest();
     r.method = "POST";
-    r.path = "v3/mail/send";
+    r.path = "/v3/mail/send";
     r.body = mail.toJSON();
 
-    sg.API(r, (response) => {
-        
+    sg.API(r)
+    .then(response => {
+        console.log(response);
     });
+    
 }
 
 var server = restify.createServer();
@@ -28,14 +30,14 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 
 // Create chat bot
 var connector = new builder.ChatConnector({
-    appId: process.env.MICROSOFT_APP_ID,
-    appPassword: process.env.MICROSOFT_APP_PASSWORD
+    appId: process.env.MICROSOFT_APP_ID || "2623b525-124a-43c0-9c94-d426ea297c48",
+    appPassword: process.env.MICROSOFT_APP_PASSWORD || "5oVSGsTJr7Awot9V6sRPkU2"
 });
 
 var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
 
-var model = process.env.LUIS_MODEL || "";
+var model = process.env.LUIS_MODEL || "https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/be63655b-3463-453c-8c86-2ff01f190a59?subscription-key=cd56d7b3af9240a5a2fb21dac2ae2bc3&verbose=true";
 var recognizer = new builder.LuisRecognizer(model);
 var intents = new builder.IntentDialog({ recognizers: [recognizer] });
 bot.dialog("/", intents);
@@ -43,15 +45,13 @@ bot.dialog("/", intents);
 
 intents.matches("Greeting", [
     (session, args, next) => {
+        session.send("Hello there! Welcome to " + process.env.CAFE_NAME + ", I am a friendly chat bot who can help you get information or make orders.\n\n")
         var card = new builder.HeroCard(session)
-        .title(process.env.CAFE_NAME)
-        .subtitle("126 Church Road, Bristol.")
-        .text("Hello there, thanks for getting in touch! - What can I help you with?")
+        .title("How can I help?")
         .buttons([
-            builder.CardAction.postBack(session, "What are you open?", "Show Opening Times"),
-            builder.CardAction.postBack(session, "I want to make an order?", "Make an order"),
-            builder.CardAction.postBack(session, "What is your phone number?", "Call us"),
-            builder.CardAction.postBack(session, "I want to send a message", "Send us a message")
+            builder.CardAction.postBack(session, "What are your opening times?", "Show Opening Times"),
+            builder.CardAction.postBack(session, "I would like to make an order please?", "Order Food"),
+            builder.CardAction.postBack(session, "What is your phone number?", "Call Us")
         ]);
 
         var message = new builder.Message(session).addAttachment(card);
@@ -91,8 +91,8 @@ intents.matches("TakeOrder", [
     },
     (session, results, next) => {
         if (results.response)  {
-            session.send("I heard: " + results.response);
-            sendEmail("benjaminpaul1984@googlemail.com", results.resonse);
+            session.send("Thanks, I have sent that order to our staff and it will be ready for you in around 30 minutes.")
+            sendEmail("benjaminpaul1984@googlemail.com", results.response);
         } else {
             next();
         }
