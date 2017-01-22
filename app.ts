@@ -118,3 +118,9 @@ intents.matches("SendMessage", [
     }
 ])
 .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said, please try again."));
+
+intents.matches("Thanks", [
+    (session, args, next) => {
+        session.send("No problem at all.");
+    }
+])
