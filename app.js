@@ -107,4 +107,9 @@ intents.matches("Thankyou", [
         session.send("No problem at all.");
     }
 ]);
+intents.matches("HowAreYou", [
+    function (session, args, next) {
+        session.send("I'm great! Thanks for asking :)");
+    }
+]);
 //# sourceMappingURL=app.js.map

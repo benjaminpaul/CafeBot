@@ -124,3 +124,9 @@ intents.matches("Thankyou", [
         session.send("No problem at all.");
     }
 ])
+
+intents.matches("HowAreYou", [
+    (session, args, next) => {
+        session.send("I'm great! Thanks for asking :)");
+    }
+]);
