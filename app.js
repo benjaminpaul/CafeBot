@@ -42,6 +42,18 @@ intents.matches("OpeningTimes", [
         session.send(s);
     }
 ]);
+intents.matches("IsOpen", [
+    function (session, args, next) {
+        var date = new Date();
+        var day = date.getDay();
+        var hours = date.getHours();
+        var openingTime = data.openingTimes[day];
+        if (openingTime) {
+            session.send("Here are our opening times for today...");
+            session.send(openingTime.dayOfWeek + ": " + openingTime.openFrom + " - " + openingTime.openTo);
+        }
+    }
+]);
 intents.matches("TakeOrder", [
     function (session, args, next) {
         builder.Prompts.text(session, "What would you like to order?");
@@ -72,5 +84,6 @@ intents.matches("SendMessage", [
             next();
         }
     }
-]);
+])
+    .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said, please try again."));
 //# sourceMappingURL=app.js.map
