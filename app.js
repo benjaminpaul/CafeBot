@@ -29,6 +29,11 @@ intents.matches("Greeting", [
         session.send(message);
     }
 ]);
+intents.matches("OutletLocations", [
+    function (session, args, next) {
+        session.send("Locations carousel here");
+    }
+]);
 intents.matches("ContactDetails", [
     function (session, args, next) {
         session.send("Our contact details are:");

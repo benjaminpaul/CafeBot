@@ -40,6 +40,13 @@ intents.matches("Greeting", [
     }
 ]);
 
+// Outlet Locations
+intents.matches("OutletLocations", [
+    (session, args, next) => {
+        session.send("Locations carousel here");
+    }
+]);
+
 // Contact Details.
 intents.matches("ContactDetails", [
     (session, args, next) => {
