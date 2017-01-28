@@ -3,26 +3,6 @@ import * as builder from "botbuilder";
 import * as data from "./data";
 import * as sendgrid from "sendgrid";
 
-function sendEmail(toAddress: string, text: string) {
-    var to = new sendgrid.mail.Email(toAddress);
-    var from = new sendgrid.mail.Email("benjaminpaul1984@googlemail.com");
-    var subject = "NEW ORDER: " + process.env.CAFE_NAME;
-    var content = new sendgrid.mail.Content('text/plain', text);
-    var mail = new sendgrid.mail.Mail(from, subject, to, content);
-    var sg = sendgrid("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");
-
-    var r = sg.emptyRequest();
-    r.method = "POST";
-    r.path = "/v3/mail/send";
-    r.body = mail.toJSON();
-
-    sg.API(r)
-    .then(response => {
-        console.log(response);
-    });
-    
-}
-
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
    console.log('%s listening to %s', server.name, server.url); 
