@@ -70,7 +70,18 @@ intents.matches("CheckCollectionArea", [
             session.send("No postcode detected.");
         }
     }
-])
+]);
+
+// What do we buy?
+intents.matches("BuyingItemsList", [
+    (session, args, next) => {
+        session.send("We only buy good quality:");
+        session.send("Clean and tidy re-usable clothes, Perfumes, Paired shoes, Handbags, Belts, Cosmetics, Jewelry & Soft toys");
+
+        session.send("Unfortunately, we don't buy:");
+        session.send("Bad quality, wet, ripped clothes, Duvets, Books, Pillows, Bric-a-brac, Bedding, Glass, Bad quality, ripped shoes, Heavy curtains, Carpets & Metal");
+    }
+]);
 
 // Contact Details.
 intents.matches("ContactDetails", [
