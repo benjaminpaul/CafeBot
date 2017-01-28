@@ -1,4 +1,5 @@
 "use strict";
+var postcode_service_1 = require("./services/postcode-service");
 var restify = require("restify");
 var builder = require("botbuilder");
 var server = restify.createServer();
@@ -15,6 +16,12 @@ var model = process.env.LUIS_MODEL || "https://westus.api.cognitive.microsoft.co
 var recognizer = new builder.LuisRecognizer(model);
 var intents = new builder.IntentDialog({ recognizers: [recognizer] });
 bot.dialog("/", intents);
+intents.matches("None", [
+    function (session, args, next) {
+        session.send("Sorry, I don't understand what you mean by that.");
+        session.send("You can ask me things like...\n\nDo you collect from {PostCode}.");
+    }
+]);
 intents.matches("Greeting", [
     function (session, args, next) {
         session.send("Hello there! Welcome to Cash 4 Clothes, I am a friendly chat bot who can help you find out about our services or even arrange a collection or delivery..\n\n");
@@ -39,7 +46,13 @@ intents.matches("CheckCollectionArea", [
         var intent = args.intent;
         var postcode = builder.EntityRecognizer.findEntity(args.entities, "Postcode");
         if (postcode) {
-            session.send("Here is your postcode: " + postcode.entity);
+            var collectionData = new postcode_service_1.PostcodeService().getSomething(postcode.entity);
+            if (collectionData) {
+                session.send("We collect on " + collectionData.collectionDay);
+            }
+            else {
+                session.send("It does not look like we collect for that postcode");
+            }
         }
         else {
             session.send("No postcode detected.");

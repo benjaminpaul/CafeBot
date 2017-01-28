@@ -1,7 +1,7 @@
+import { PostcodeService } from './services/postcode-service';
 import * as restify from "restify";
 import * as builder from "botbuilder";
 import * as data from "./data";
-import * as sendgrid from "sendgrid";
 
 var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
@@ -22,6 +22,12 @@ var recognizer = new builder.LuisRecognizer(model);
 var intents = new builder.IntentDialog({ recognizers: [recognizer] });
 bot.dialog("/", intents);
 
+intents.matches("None", [
+    (session, args, next) => {
+        session.send("Sorry, I don't understand what you mean by that.");
+        session.send("You can ask me things like...\n\nDo you collect from {PostCode}.")
+    }
+])
 
 // Greeting.
 intents.matches("Greeting", [
@@ -54,7 +60,12 @@ intents.matches("CheckCollectionArea", [
         var postcode = builder.EntityRecognizer.findEntity(args.entities, "Postcode");
 
         if (postcode) {
-            session.send("Here is your postcode: " + postcode.entity);
+            var collectionData = new PostcodeService().getSomething(postcode.entity);
+            if (collectionData) {
+                session.send("We collect on " + collectionData.collectionDay);
+            } else {
+                session.send("It does not look like we collect for that postcode");
+            }
         } else {
             session.send("No postcode detected.");
         }
