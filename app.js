@@ -39,7 +39,7 @@ intents.matches("CheckCollectionArea", [
         var intent = args.intent;
         var postcode = builder.EntityRecognizer.findEntity(args.entities, "Postcode");
         if (postcode) {
-            session.send("Here is your postcode: " + postcode);
+            session.send("Here is your postcode: " + postcode.entity);
         }
         else {
             session.send("No postcode detected.");
