@@ -34,6 +34,18 @@ intents.matches("OutletLocations", [
         session.send("Locations carousel here");
     }
 ]);
+intents.matches("CheckCollectionArea", [
+    function (session, args, next) {
+        var intent = args.intent;
+        var postcode = builder.EntityRecognizer.findEntity(intent.entities, "Postcode");
+        if (postcode) {
+            session.send("Here is your postcode: " + postcode);
+        }
+        else {
+            session.send("No postcode detected.");
+        }
+    }
+]);
 intents.matches("ContactDetails", [
     function (session, args, next) {
         session.send("Our contact details are:");
