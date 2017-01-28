@@ -6,8 +6,8 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
     console.log('%s listening to %s', server.name, server.url);
 });
 var connector = new builder.ChatConnector({
-    appId: process.env.MICROSOFT_APP_ID || "2623b525-124a-43c0-9c94-d426ea297c48",
-    appPassword: process.env.MICROSOFT_APP_PASSWORD || "5oVSGsTJr7Awot9V6sRPkU2"
+    appId: process.env.MICROSOFT_APP_ID || "58b65693-1080-40e6-8f3f-5a6de6b697a2",
+    appPassword: process.env.MICROSOFT_APP_PASSWORD || "VBOGPxkH1tXpidO6CesnV5u"
 });
 var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
@@ -37,7 +37,7 @@ intents.matches("OutletLocations", [
 intents.matches("CheckCollectionArea", [
     function (session, args, next) {
         var intent = args.intent;
-        var postcode = builder.EntityRecognizer.findEntity(intent.entities, "Postcode");
+        var postcode = builder.EntityRecognizer.findEntity(args.entities, "Postcode");
         if (postcode) {
             session.send("Here is your postcode: " + postcode);
         }
