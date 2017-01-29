@@ -96,6 +96,13 @@ bot.dialog("/OrganiseCollection", [
     },
     function (session, results, next) {
         if (results.response) {
+            var deliveryDay = new postcode_service_1.PostcodeService().getSomething(results.response);
+            if (deliveryDay) {
+                session.send("No problem, we collect from that postcode " + deliveryDay.collectionDay);
+            }
+            else {
+                session.send("We currently dont collect from that postcode, however you can always drop it to us at one of our outlets.");
+            }
             session.dialogData.collection.postcode = results.response;
         }
         if (!session.dialogData.collection.type) {
@@ -104,7 +111,7 @@ bot.dialog("/OrganiseCollection", [
     },
     function (session, results) {
         if (results.response) {
-            session.dialogData.collection.type = results.response;
+            session.dialogData.collection.type = results.response.entity;
         }
         session.endDialogWithResult({ response: session.dialogData.collection });
     }
