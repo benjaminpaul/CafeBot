@@ -91,3 +91,41 @@ intents.matches("ContactDetails", [
         session.send("Bristol Area:\n\nCall: 01708 689 984\n\nText: 07514 030 630");
     }
 ]);
+
+intents.matches("OrganiseCollection", [
+    (session, args, next) => {
+        session.send("No problem, lets get a little information from you...");
+        session.beginDialog("/OrganiseCollection", session.dialogData.collection);
+    },
+    (session, results) => {
+        session.send("You want a " + results.response.type);
+        session.send("At the postcode: " + results.response.postcode);
+    }
+]);
+
+bot.dialog("/OrganiseCollection", [
+    (session, args, next) => {
+        session.dialogData.collection = args || {};
+        if (!session.dialogData.collection.postcode) {
+            builder.Prompts.text(session, "What is your postcode?");
+        } else {
+            next();
+        }
+    },
+    (session, results, next) => {
+        if (results.response) {
+            session.dialogData.collection.postcode = results.response;
+        }
+
+        if (!session.dialogData.collection.type) {
+            builder.Prompts.choice(session, "Would you like collection or delivery?", ["Collection", "Delivery"]);
+        }
+    },
+    (session, results) => {
+        if (results.response) {
+            session.dialogData.collection.type = results.response;
+        }
+
+        session.endDialogWithResult({ response: session.dialogData.collection });
+    }
+])
