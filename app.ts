@@ -29,7 +29,9 @@ intents.matches("None", [
     }
 ])
 
+//////////////////////////////////////////////
 // Greeting.
+//////////////////////////////////////////////
 intents.matches("Greeting", [
     (session, args, next) => {
         session.send("Hello there! Welcome to Cash 4 Clothes, I am a friendly chat bot who can help you find out about our services or even arrange a collection or delivery..\n\n")
@@ -46,14 +48,18 @@ intents.matches("Greeting", [
     }
 ]);
 
+//////////////////////////////////////////////
 // Outlet Locations
+//////////////////////////////////////////////
 intents.matches("OutletLocations", [
     (session, args, next) => {
         session.send("Locations carousel here");
     }
 ]);
 
+//////////////////////////////////////////////
 // Check collection area.
+//////////////////////////////////////////////
 intents.matches("CheckCollectionArea", [
     (session, args, next) => {
         var intent = args.intent;
@@ -72,7 +78,9 @@ intents.matches("CheckCollectionArea", [
     }
 ]);
 
+//////////////////////////////////////////////
 // What do we buy?
+//////////////////////////////////////////////
 intents.matches("BuyingItemsList", [
     (session, args, next) => {
         session.send("We only buy good quality:");
@@ -83,7 +91,9 @@ intents.matches("BuyingItemsList", [
     }
 ]);
 
+//////////////////////////////////////////////
 // Contact Details.
+//////////////////////////////////////////////
 intents.matches("ContactDetails", [
     (session, args, next) => {
         session.send("Our contact details are:");
@@ -92,8 +102,15 @@ intents.matches("ContactDetails", [
     }
 ]);
 
+//////////////////////////////////////////////
+// Organise a collection
+//////////////////////////////////////////////
 intents.matches("OrganiseCollection", [
     (session, args, next) => {
+        var postcode = builder.EntityRecognizer.findEntity(args.entities, "Postcode");
+        if (postcode) {
+            session.dialogData.collection.postcode = postcode.entity;
+        }
         session.send("No problem, lets get a little information from you...");
         session.beginDialog("/OrganiseCollection", session.dialogData.collection);
     },
@@ -103,6 +120,9 @@ intents.matches("OrganiseCollection", [
     }
 ]);
 
+//////////////////////////////////////////////
+// Collection dialog.
+//////////////////////////////////////////////
 bot.dialog("/OrganiseCollection", [
     (session, args, next) => {
         session.dialogData.collection = args || {};
