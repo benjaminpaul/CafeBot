@@ -76,6 +76,10 @@ intents.matches("ContactDetails", [
 ]);
 intents.matches("OrganiseCollection", [
     function (session, args, next) {
+        var postcode = builder.EntityRecognizer.findEntity(args.entities, "Postcode");
+        if (postcode) {
+            session.dialogData.collection.postcode = postcode.entity;
+        }
         session.send("No problem, lets get a little information from you...");
         session.beginDialog("/OrganiseCollection", session.dialogData.collection);
     },
