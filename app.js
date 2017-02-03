@@ -78,7 +78,7 @@ intents.matches("OrganiseCollection", [
     function (session, args, next) {
         var postcode = builder.EntityRecognizer.findEntity(args.entities, "Postcode");
         if (postcode) {
-            session.dialogData.collection.postcode = postcode.entity;
+            session.userData.postcode = postcode.entity;
         }
         session.send("No problem, lets get a little information from you...");
         session.beginDialog("/OrganiseCollection", session.dialogData.collection);
@@ -92,6 +92,9 @@ bot.dialog("/OrganiseCollection", [
     function (session, args, next) {
         session.dialogData.collection = args || {};
         if (!session.dialogData.collection.postcode) {
+            if (session.userData.postcode) {
+                session.send("Postcode: " + session.userData.postcode);
+            }
             builder.Prompts.text(session, "What is your postcode?");
         }
         else {
