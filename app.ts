@@ -109,7 +109,7 @@ intents.matches("OrganiseCollection", [
     (session, args, next) => {
         var postcode = builder.EntityRecognizer.findEntity(args.entities, "Postcode");
         if (postcode) {
-            session.userData.postcode = postcode.entity;
+            session.userData.latestPostcode = postcode.entity;
         }
         session.send("No problem, lets get a little information from you...");
         session.beginDialog("/OrganiseCollection", session.dialogData.collection);
@@ -127,11 +127,12 @@ bot.dialog("/OrganiseCollection", [
     (session, args, next) => {
         session.dialogData.collection = args || {};
         if (!session.dialogData.collection.postcode) {
-            if (session.userData.postcode) {
+            if (session.userData.latestPostcode) {
                 session.send("Postcode: " + session.userData.postcode);
+                next({ response: { postcode: session.userData.latestPostcode }});
+            } else {
+                builder.Prompts.text(session, "What is your postcode?");
             }
-            
-            builder.Prompts.text(session, "What is your postcode?");
         } else {
             next();
         }
@@ -151,11 +152,17 @@ bot.dialog("/OrganiseCollection", [
             builder.Prompts.choice(session, "Would you like collection or delivery?", ["Collection", "Delivery"]);
         }
     },
-    (session, results) => {
+    (session, results, next) => {
         if (results.response) {
             session.dialogData.collection.type = results.response.entity;
         }
 
-        session.endDialogWithResult({ response: session.dialogData.collection });
+        if (session.dialogData.collection.type === "Collection") {
+            if (!session.dialogData.collection.address) {
+                builder.Prompts.text(session, "What address would you like us to collect from?");
+            }
+        } else {
+            session.endDialogWithResult({ response: session.dialogData.collection });
+        }
     }
 ])
