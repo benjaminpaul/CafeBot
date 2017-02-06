@@ -127,6 +127,7 @@ bot.dialog("/OrganiseCollection", [
             }
         }
         else {
+            session.userData.latestPostcode = null;
             session.endDialogWithResult({ response: session.dialogData.collection });
         }
     }

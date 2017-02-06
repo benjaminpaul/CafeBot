@@ -163,6 +163,7 @@ bot.dialog("/OrganiseCollection", [
                 builder.Prompts.text(session, "No problem at all, what is the full address we should collect from?");
             }
         } else {
+            session.userData.latestPostcode = null;     
             session.endDialogWithResult({ response: session.dialogData.collection });
         }
     }
