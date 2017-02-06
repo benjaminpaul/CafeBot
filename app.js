@@ -61,8 +61,8 @@ intents.matches("CheckCollectionArea", [
 ]);
 intents.matches("BuyingItemsList", [
     function (session, args, next) {
-        session.send("We only buy good quality:\n\nClean and tidy re-usable clothes, Perfumes, Paired shoes, Handbags, Belts, Cosmetics, Jewelry & Soft toys");
-        session.send("Unfortunately, we don't buy:\n\nBad quality, wet, ripped clothes, Duvets, Books, Pillows, Bric-a-brac, Bedding, Glass, Bad quality, ripped shoes, Heavy curtains, Carpets & Metal");
+        session.send("We accept good quality:\n\nClean and tidy re-usable clothes, Perfumes, Paired shoes, Handbags, Belts, Cosmetics, Jewelry & Soft toys");
+        session.send("Unfortunately, we don't accept:\n\nBad quality, wet, ripped clothes, Duvets, Books, Pillows, Bric-a-brac, Bedding, Glass, Bad quality, ripped shoes, Heavy curtains, Carpets & Metal");
     }
 ]);
 intents.matches("ContactDetails", [
