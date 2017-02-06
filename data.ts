@@ -41,7 +41,7 @@ export const collectionDays:Array<ICollectionDay> = [
         postcodes: ["SN10", "SN11", "SN12", "SN13", "SN14", "SN15"]
     },
     {
-        collectionDay: "Tuesday to Friday",
+        collectionDay: "Monday to Friday",
         postcodes: ["BS1", "BS2", "BS3", "BS4", "BS5", "BS6", "BS7", "BS8", "BS9", "BS10", "BS11", "BS13", "BS14", "BS15", "BS16", "BS30", "BS31", "BS32", "BS34"]
     }
 ]
