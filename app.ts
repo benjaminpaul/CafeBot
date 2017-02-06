@@ -151,7 +151,7 @@ bot.dialog("/OrganiseCollection", [
         }
 
         if (!session.dialogData.collection.type) {
-            builder.Prompts.choice(session, "Would you like collection or delivery?", ["Collection", "Delivery"]);
+            builder.Prompts.choice(session, "Would you like us to collect it? (Collection) or are you happy to drop it into one of our outlets? (Delivery)", ["Collection", "Delivery"]);
         }
     },
     (session, results, next) => {
