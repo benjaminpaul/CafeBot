@@ -128,8 +128,8 @@ bot.dialog("/OrganiseCollection", [
         session.dialogData.collection = args || {};
         if (!session.dialogData.collection.postcode) {
             if (session.userData.latestPostcode) {
-                session.send("Postcode: " + session.userData.postcode);
-                next({ response: { postcode: session.userData.latestPostcode }});
+                session.send("Postcode: " + session.userData.latestPostcode);
+                next({ response: session.userData.latestPostcode });
             } else {
                 builder.Prompts.text(session, "What is your postcode?");
             }
