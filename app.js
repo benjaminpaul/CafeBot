@@ -93,7 +93,6 @@ bot.dialog("/OrganiseCollection", [
         session.dialogData.collection = args || {};
         if (!session.dialogData.collection.postcode) {
             if (session.userData.latestPostcode) {
-                session.send("Postcode: " + session.userData.latestPostcode);
                 next({ response: session.userData.latestPostcode });
             }
             else {
@@ -108,7 +107,7 @@ bot.dialog("/OrganiseCollection", [
         if (results.response) {
             var deliveryDay = new postcode_service_1.PostcodeService().getSomething(results.response);
             if (deliveryDay) {
-                session.send("No problem, we collect from that postcode " + deliveryDay.collectionDay);
+                session.send("We collect from " + results.response + " on " + deliveryDay.collectionDay);
             }
             else {
                 session.send("We currently dont collect from that postcode, however you can always drop it to us at one of our outlets.");
@@ -125,7 +124,7 @@ bot.dialog("/OrganiseCollection", [
         }
         if (session.dialogData.collection.type === "Collection") {
             if (!session.dialogData.collection.address) {
-                builder.Prompts.text(session, "What address would you like us to collect from?");
+                builder.Prompts.text(session, "No problem at all, what is the full address we should collect from?");
             }
         }
         else {
