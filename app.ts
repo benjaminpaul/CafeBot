@@ -34,6 +34,7 @@ intents.matches("None", [
 //////////////////////////////////////////////
 intents.matches("Greeting", [
     (session, args, next) => {
+        session.reset();
         session.send("Hello there! Welcome to Cash 4 Clothes, I am a friendly chat bot who can help you find out about our services or even arrange a collection or delivery..\n\n")
         var card = new builder.HeroCard(session)
         .title("How can I help?")
