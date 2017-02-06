@@ -115,8 +115,7 @@ intents.matches("OrganiseCollection", [
         session.beginDialog("/OrganiseCollection", session.dialogData.collection);
     },
     (session, results) => {
-        session.send("You want a " + results.response.type);
-        session.send("At the postcode: " + results.response.postcode);
+        session.send("Thank you, we have your details and will see you soon.")
     }
 ]);
 
