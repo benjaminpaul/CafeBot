@@ -48,10 +48,10 @@ intents.matches("CheckCollectionArea", [
         if (postcode) {
             var collectionData = new postcode_service_1.PostcodeService().getSomething(postcode.entity);
             if (collectionData) {
-                session.send("We collect on " + collectionData.collectionDay);
+                session.send("Yes! We collect from " + postcode.entity + " on " + collectionData.collectionDay);
             }
             else {
-                session.send("It does not look like we collect for that postcode");
+                session.send("Sorry, at the moment it doesnt look like we collect from that postcode :(");
             }
         }
         else {
