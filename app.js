@@ -19,7 +19,6 @@ bot.dialog("/", intents);
 intents.matches("None", [
     function (session, args, next) {
         session.send("Sorry, I don't understand what you mean by that.");
-        session.send("You can ask me things like...\n\nDo you collect from {PostCode}.");
     }
 ]);
 intents.matches("Greeting", [
@@ -62,10 +61,8 @@ intents.matches("CheckCollectionArea", [
 ]);
 intents.matches("BuyingItemsList", [
     function (session, args, next) {
-        session.send("We only buy good quality:");
-        session.send("Clean and tidy re-usable clothes, Perfumes, Paired shoes, Handbags, Belts, Cosmetics, Jewelry & Soft toys");
-        session.send("Unfortunately, we don't buy:");
-        session.send("Bad quality, wet, ripped clothes, Duvets, Books, Pillows, Bric-a-brac, Bedding, Glass, Bad quality, ripped shoes, Heavy curtains, Carpets & Metal");
+        session.send("We only buy good quality:\n\nClean and tidy re-usable clothes, Perfumes, Paired shoes, Handbags, Belts, Cosmetics, Jewelry & Soft toys");
+        session.send("Unfortunately, we don't buy:\n\nBad quality, wet, ripped clothes, Duvets, Books, Pillows, Bric-a-brac, Bedding, Glass, Bad quality, ripped shoes, Heavy curtains, Carpets & Metal");
     }
 ]);
 intents.matches("ContactDetails", [

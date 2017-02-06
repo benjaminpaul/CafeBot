@@ -25,7 +25,6 @@ bot.dialog("/", intents);
 intents.matches("None", [
     (session, args, next) => {
         session.send("Sorry, I don't understand what you mean by that.");
-        session.send("You can ask me things like...\n\nDo you collect from {PostCode}.")
     }
 ])
 
@@ -35,7 +34,7 @@ intents.matches("None", [
 intents.matches("Greeting", [
     (session, args, next) => {
         session.userData = null;     
-        session.send("Hello there! Welcome to Cash 4 Clothes, I am a friendly chat bot who can help you find out about our services or even arrange a collection or delivery..\n\n")
+        session.send("Hello there! Welcome to Cash 4 Clothes, I am a friendly chat bot who can help you find out about our services or even arrange a collection or delivery..\n\n");
         var card = new builder.HeroCard(session)
         .title("How can I help?")
         .buttons([
@@ -84,11 +83,8 @@ intents.matches("CheckCollectionArea", [
 //////////////////////////////////////////////
 intents.matches("BuyingItemsList", [
     (session, args, next) => {
-        session.send("We only buy good quality:");
-        session.send("Clean and tidy re-usable clothes, Perfumes, Paired shoes, Handbags, Belts, Cosmetics, Jewelry & Soft toys");
-
-        session.send("Unfortunately, we don't buy:");
-        session.send("Bad quality, wet, ripped clothes, Duvets, Books, Pillows, Bric-a-brac, Bedding, Glass, Bad quality, ripped shoes, Heavy curtains, Carpets & Metal");
+        session.send("We only buy good quality:\n\nClean and tidy re-usable clothes, Perfumes, Paired shoes, Handbags, Belts, Cosmetics, Jewelry & Soft toys");
+        session.send("Unfortunately, we don't buy:\n\nBad quality, wet, ripped clothes, Duvets, Books, Pillows, Bric-a-brac, Bedding, Glass, Bad quality, ripped shoes, Heavy curtains, Carpets & Metal");
     }
 ]);
 
