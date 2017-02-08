@@ -198,4 +198,9 @@ bot.dialog("/OrganiseCollection", [
         session.endDialogWithResult({ response: session.dialogData.collection });
     }
 ]);
+intents.matches("Thank", [
+    function (session, args, next) {
+        session.send(["No proble at all :)", "Anytime :)", "You are welcome"]);
+    }
+]);
 //# sourceMappingURL=app.js.map
