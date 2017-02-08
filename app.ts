@@ -74,7 +74,7 @@ intents.matches("OutletLocations", [
             .text("Lockleaze Road, Bristol BS7 9RU"),
             new builder.ThumbnailCard(session)
             .images([logo])
-            .text("Southmead Road")
+            .title("Southmead Road")
             .text("331A Southmead Road, Westbury-on-Trym, Bristol, BS10 5LW"),
             new builder.ThumbnailCard(session)
             .images([logo])
