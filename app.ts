@@ -40,7 +40,7 @@ intents.matches("Greeting", [
         .buttons([
             builder.CardAction.postBack(session, "I want you to collect some clothes", "I have clothes for you"),
             builder.CardAction.postBack(session, "Nearest outlet", "Where are your shops?"),
-            builder.CardAction.postBack(session, "What do you accept", "What do you accept")
+            builder.CardAction.postBack(session, "What do you accept?", "What do you accept")
         ]);
 
         var message = new builder.Message(session).addAttachment(card);
@@ -86,7 +86,7 @@ intents.matches("OutletLocations", [
             .text("64 Moorland Road, Weston-Super-Mare, North Somerset BS23 4HT")
         ];
 
-        session.send("We have a number of outlets, here are their details...");
+        session.send("We have a number of outlets, let me just grab their details for you.");
         var reply = new builder.Message(session)
         .attachmentLayout(builder.AttachmentLayout.carousel)
         .attachments(cards);
@@ -121,8 +121,7 @@ intents.matches("CheckCollectionArea", [
 //////////////////////////////////////////////
 intents.matches("BuyingItemsList", [
     (session, args, next) => {
-        session.send("We accept good quality:\n\nClean and tidy re-usable clothes, Perfumes, Paired shoes, Handbags, Belts, Cosmetics, Jewelry & Soft toys");
-        session.send("Unfortunately, we don't accept:\n\nBad quality, wet, ripped clothes, Duvets, Books, Pillows, Bric-a-brac, Bedding, Glass, Bad quality, ripped shoes, Heavy curtains, Carpets & Metal");
+        session.send("**We accept good quality:**\n\nClean and tidy re-usable clothes, Perfumes, Paired shoes, Handbags, Belts, Cosmetics, Jewelry & Soft toys\n\n**Unfortunately, we don't accept:**\n\nBad quality, wet, ripped clothes, Duvets, Books, Pillows, Bric-a-brac, Bedding, Glass, Bad quality, ripped shoes, Heavy curtains, Carpets & Metal");
     }
 ]);
 
