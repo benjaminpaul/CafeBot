@@ -86,6 +86,7 @@ intents.matches("OutletLocations", [
             .text("64 Moorland Road, Weston-Super-Mare, North Somerset BS23 4HT")
         ];
 
+        session.send("We have a number of outlets, here are their details...");
         var reply = new builder.Message(session)
         .attachmentLayout(builder.AttachmentLayout.carousel)
         .attachments(cards);
