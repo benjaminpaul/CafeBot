@@ -200,7 +200,7 @@ bot.dialog("/OrganiseCollection", [
 ]);
 intents.matches("Thank", [
     function (session, args, next) {
-        session.send(["No proble at all :)", "Anytime :)", "You are welcome"]);
+        session.send(["No problem at all :)", "Anytime :)", "You are welcome"]);
     }
 ]);
 //# sourceMappingURL=app.js.map

@@ -257,6 +257,6 @@ bot.dialog("/OrganiseCollection", [
 //////////////////////////////////////////////
 intents.matches("Thank", [
     (session, args, next) => {
-        session.send(["No proble at all :)", "Anytime :)", "You are welcome"]);
+        session.send(["No problem at all :)", "Anytime :)", "You are welcome"]);
     }
 ])
