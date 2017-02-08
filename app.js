@@ -47,19 +47,24 @@ intents.matches("OutletLocations", [
         var cards = [
             new builder.ThumbnailCard(session)
                 .images([logo])
-                .title("629 Fishponds Road, Fishponds, Bristol BS16 3BA"),
+                .title("Fishponds Road")
+                .text("629 Fishponds Road, Fishponds, Bristol BS16 3BA"),
             new builder.ThumbnailCard(session)
                 .images([logo])
-                .title("Lockleaze Road, Bristol BS7 9RU"),
+                .title("Lockleaze Road")
+                .text("Lockleaze Road, Bristol BS7 9RU"),
             new builder.ThumbnailCard(session)
                 .images([logo])
-                .title("331A Southmead Road, Westbury-on-Trym, Bristol, BS10 5LW"),
+                .text("Southmead Road")
+                .text("331A Southmead Road, Westbury-on-Trym, Bristol, BS10 5LW"),
             new builder.ThumbnailCard(session)
                 .images([logo])
-                .title("Unit 1A, Carrick Business Centre, 4-5 Bonville Road, Brislington, Bristol BS4 5NZ"),
+                .title("Brislington")
+                .text("Unit 1A, Carrick Business Centre, 4-5 Bonville Road, Brislington, Bristol BS4 5NZ"),
             new builder.ThumbnailCard(session)
                 .images([logo])
-                .title("64 Moorland Road, Weston-Super-Mare, North Somerset BS23 4HT")
+                .title("Weston-Super-Mare")
+                .text("64 Moorland Road, Weston-Super-Mare, North Somerset BS23 4HT")
         ];
         var reply = new builder.Message(session)
             .attachmentLayout(builder.AttachmentLayout.carousel)
