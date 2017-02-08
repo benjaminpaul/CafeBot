@@ -159,8 +159,33 @@ bot.dialog("/OrganiseCollection", [
             if (!session.dialogData.collection.address) {
                 builder.Prompts.text(session, "No problem at all, what is the full address we should collect from?");
             }
-        } else {
-            session.endDialogWithResult({ response: session.dialogData.collection });
         }
+    },
+    (session, results, next) => {
+
+        if (results.response) {
+            session.dialogData.collection.address = results.response;
+        }
+
+        if (!session.dialogData.collection.phone) {
+            builder.Prompts.number(session, "What contact telephone number can we use to contact you?");
+        }
+    },
+    (session, results, next) => {
+        
+        if (results.response) {
+            session.dialogData.collection.phone = results.response;
+        }
+
+        if (!session.dialogData.fundsforschools) {
+            builder.Prompts.choice(session, "Would you like to donate the proceeds to Funds4Schools?", ["Yes", "No"]);
+        }
+    },
+    (session, results, next) => {
+        if (results.response) {
+            session.dialogData.fundsforschools = results.response;
+        }
+
+        session.endDialogWithResult({ response: session.dialogData.collection });
     }
 ])
