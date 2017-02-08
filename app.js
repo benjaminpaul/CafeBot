@@ -91,6 +91,25 @@ intents.matches("CheckCollectionArea", [
         }
     }
 ]);
+intents.matches("AppointmentCancel", [
+    function (session, args, next) {
+        builder.Prompts.text(session, "That is a shame, what was the postcode we were due to collect from?");
+    },
+    function (session, results, next) {
+        if (results.response) {
+            session.dialogData.cancellation.postcode = results.response;
+        }
+        builder.Prompts.number(session, "What was your contact number we have for you?");
+    },
+    function (session, results, next) {
+        if (results.response) {
+            session.dialogData.cancellation.number = results.response;
+        }
+        session.send("Thank you.");
+        session.send("Postcode: " + session.dialogData.cancellation.postcode);
+        session.send("Number: " + session.dialogData.cancellation.number);
+    }
+]);
 intents.matches("BuyingItemsList", [
     function (session, args, next) {
         session.send("**We accept good quality:**\n\nClean and tidy re-usable clothes, Perfumes, Paired shoes, Handbags, Belts, Cosmetics, Jewelry & Soft toys\n\n**Unfortunately, we don't accept:**\n\nBad quality, wet, ripped clothes, Duvets, Books, Pillows, Bric-a-brac, Bedding, Glass, Bad quality, ripped shoes, Heavy curtains, Carpets & Metal");
