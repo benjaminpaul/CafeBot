@@ -51,6 +51,15 @@ intents.matches("Greeting", [
 //////////////////////////////////////////////
 // Outlet Locations
 //////////////////////////////////////////////
+intents.matches("Prices", [
+    (session, args, next) => {
+        session.send("We pay 50p per KG, £5.00 per 10KG and £500 per tonne. There is no minimum weight or price.")
+    }
+])
+
+//////////////////////////////////////////////
+// Outlet Locations
+//////////////////////////////////////////////
 intents.matches("OutletLocations", [
     (session, args, next) => {
         session.send("Locations carousel here");
