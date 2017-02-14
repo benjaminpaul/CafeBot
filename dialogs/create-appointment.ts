@@ -21,10 +21,10 @@ export const dialog : builder.IDialogWaterfallStep[] = [
                 .attachments(Outlets.getOutletCards(session));
                 session.send(reply);
                 session.endDialogWithResult({ response: session.dialogData.appointment });
+            } else {
+                new builder.Prompts.text(session, "What is your postcode?");
             }
         }
-
-        new builder.Prompts.text(session, "What is your postcode?");
     },
     (session, results, next) => {
         if (results.response) {

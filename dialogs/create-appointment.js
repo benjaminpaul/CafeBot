@@ -20,8 +20,10 @@ exports.dialog = [
                 session.send(reply);
                 session.endDialogWithResult({ response: session.dialogData.appointment });
             }
+            else {
+                new builder.Prompts.text(session, "What is your postcode?");
+            }
         }
-        new builder.Prompts.text(session, "What is your postcode?");
     },
     function (session, results, next) {
         if (results.response) {
