@@ -93,9 +93,9 @@ export const dialog : builder.IDialogWaterfallStep[] = [
         var message = "Here are the details of your collection:\n\n**Collect On:** " + session.dialogData.appointment.collectionDay + "\n\n"
             + "**From Address:** " + session.dialogData.appointment.address + "\n\n"
             + "**Contact Number:** " + session.dialogData.appointment.contactNumber + "\n\n"
-            + "**Funds 4 Schools:** " + session.dialogData.appointment.funds4schools ? "Yes" : "No"
+            + "**Funds 4 Schools:** " + session.dialogData.appointment.funds4schools
             + "\n\nIs this ok?";
-            
+
         new builder.Prompts.confirm(session, message);
     },
     (session, results, next) => {
