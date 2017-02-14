@@ -1,4 +1,5 @@
 "use strict";
+var postcode_service_1 = require("./../services/postcode-service");
 var outlets_1 = require("./outlets");
 var builder = require("botbuilder");
 exports.dialog = [
@@ -32,10 +33,21 @@ exports.dialog = [
                 next({ resumed: builder.ResumeReason.back });
             }
             else {
-                session.send("Looks good.");
-                session.dialogData.appointment.postcode = postcode;
-                session.endDialogWithResult({ response: session.dialogData.appointment });
+                var delivery = new postcode_service_1.PostcodeService().getSomething(postcode);
+                if (!delivery) {
+                    session.send("Sorry, but it does not look like we collect from that postcode however you can always drop it off to one of our outlets.");
+                    session.endDialogWithResult({ response: session.dialogData.appointment });
+                }
+                else {
+                    new builder.Prompts.choice(session, "What day would you like us to collect it?", delivery.collectionDays);
+                }
             }
+        }
+    },
+    function (session, results, next) {
+        if (results.response) {
+            session.send(results.response.entity);
+            session.endDialogWithResult({ response: session.dialogData.appointment });
         }
     }
 ];

@@ -1,3 +1,4 @@
+import { PostcodeService } from './../services/postcode-service';
 import { CancelAppointment } from './cancel-appointment';
 import { Outlets } from './outlets';
 import * as builder from "botbuilder";
@@ -32,10 +33,20 @@ export const dialog : builder.IDialogWaterfallStep[] = [
             if (postcode.length < 6) {
                 next({ resumed: builder.ResumeReason.back });
             } else {
-                session.send("Looks good.");
-                session.dialogData.appointment.postcode = postcode;
-                session.endDialogWithResult({ response: session.dialogData.appointment });
+                var delivery = new PostcodeService().getSomething(postcode);
+                if (!delivery) {
+                    session.send("Sorry, but it does not look like we collect from that postcode however you can always drop it off to one of our outlets.");
+                    session.endDialogWithResult({ response: session.dialogData.appointment });
+                } else {
+                    new builder.Prompts.choice(session, "What day would you like us to collect it?", delivery.collectionDays);
+                }
             }
         }
-    }
+    },
+    (session, results, next) => {
+        if (results.response) {
+            session.send(results.response.entity);
+            session.endDialogWithResult({ response: session.dialogData.appointment });
+        }
+    } 
 ]
