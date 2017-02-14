@@ -64,7 +64,18 @@ export const dialog : builder.IDialogWaterfallStep[] = [
                 session.send("Please give me a valid address");
                 next({ resumed: builder.ResumeReason.back });
             } else {
-                session.dialogData.appointment.address = address;
+                new builder.Prompts.number(session, "What is your contact telephone number?");
+            }
+        }
+    },
+    (session, results, next) => {
+        if (results.response) {
+            var contactNumber = results.response;
+            if (contactNumber.length < 9) {
+                session.send("That does not look like a valid telephone number!");
+                next({ resumed: builder.ResumeReason.back });   
+            } else {
+                session.dialogData.appointment.contactNumber = contactNumber;
                 new builder.Prompts.confirm(session, "Would you like to donate the funds to Funds4Schools?");
             }
         }
