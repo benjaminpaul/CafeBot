@@ -10,9 +10,9 @@ exports.dialog = [
     },
     function (session, results, next) {
         if (results.response) {
-            session.dialogData.appointment.type = results.response;
-            session.send(results.response);
-            if (session.dialogData.appointment.type == "drop off") {
+            session.send(results.response.entity);
+            session.dialogData.appointment.type = results.response.entity;
+            if (results.response.entity == "Drop off") {
                 session.send("No problem at all, we have a number of outlets you can visit, let me just get them for you.");
                 var reply = new builder.Message(session)
                     .attachmentLayout(builder.AttachmentLayout.carousel)
