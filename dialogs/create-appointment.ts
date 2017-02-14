@@ -51,8 +51,7 @@ export const dialog : builder.IDialogWaterfallStep[] = [
         }
     },
     (session, results, next) => {
-        if (results.response) {
-            session.send(results.response.entity);
-        }
+        session.send("Thanks");
+        session.send(results.response.entity);
     }
 ]
