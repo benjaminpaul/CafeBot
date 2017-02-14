@@ -9,9 +9,9 @@ export class EmailService {
             + "Contact Number: " + appointment.contactNumber + "\n\n"
             + "Funds 4 Schools: " + appointment.funds4schools
 
-        var to = new sendgrid.mail.Email("ben.paul@just-eat.com");
+        var to = new sendgrid.mail.Email("witalijab@gmail.com");
         var from = new sendgrid.mail.Email("benjaminpaul1984@googlemail.com");
-        var subject = "Scheduled Appointment from Bot"
+        var subject = "Scheduled Collection from Bot"
         var content = new sendgrid.mail.Content('text/plain', message);
         var mail = new sendgrid.mail.Mail(from, subject, to, content);
 

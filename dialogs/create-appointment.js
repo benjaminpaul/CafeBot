@@ -103,8 +103,13 @@ exports.dialog = [
         new builder.Prompts.confirm(session, message);
     },
     function (session, results, next) {
-        var s = new email_service_1.EmailService().sendAppointmentEmail(session.dialogData.appointment);
-        session.send("Great! Thank you.");
+        if (results.response) {
+            var s = new email_service_1.EmailService().sendAppointmentEmail(session.dialogData.appointment);
+            session.send("Thank you, we now have your details and our agents will be with you as organised. Thanks for using Cash 4 Clothes.");
+        }
+        else {
+            session.send("Sorry if this was not what you wanted. Please feel free to try again.");
+        }
     }
 ];
 //# sourceMappingURL=create-appointment.js.map

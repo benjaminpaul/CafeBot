@@ -1,3 +1,4 @@
+import { Thanks } from './thanks';
 import { EmailService } from './../services/email-service';
 import { PostcodeService } from './../services/postcode-service';
 import { CancelAppointment } from './cancel-appointment';
@@ -100,7 +101,11 @@ export const dialog : builder.IDialogWaterfallStep[] = [
         new builder.Prompts.confirm(session, message);
     },
     (session, results, next) => {
-        var s = new EmailService().sendAppointmentEmail(session.dialogData.appointment);
-        session.send("Great! Thank you.");
+        if (results.response) {
+            var s = new EmailService().sendAppointmentEmail(session.dialogData.appointment);
+            session.send("Thank you, we now have your details and our agents will be with you as organised. Thanks for using Cash 4 Clothes.");
+        } else {
+            session.send("Sorry if this was not what you wanted. Please feel free to try again.");
+        }
     }
 ]
