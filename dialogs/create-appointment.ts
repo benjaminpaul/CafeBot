@@ -51,7 +51,33 @@ export const dialog : builder.IDialogWaterfallStep[] = [
         }
     },
     (session, results, next) => {
-        session.send("Thanks");
-        session.send(JSON.stringify(results));
+        if (results.response) {
+            new builder.Prompts.text(session, "What is the address you want us to collect from?");
+        } else {
+            session.send("No problem, please remember you can always drop your items into one of our outlets, thanks for using Cash 4 Clothes.");
+        }
+    },
+    (session, results, next) => {
+        if (results.response) {
+            var address = results.response;
+            if (address.length < 10) {
+                session.send("Please give me a valid address");
+                next({ resumed: builder.ResumeReason.back });
+            } else {
+                session.dialogData.appointment.address = address;
+                new builder.Prompts.confirm(session, "Would you like to donate the funds to Funds4Schools?");
+            }
+        }
+    },
+    (session, results, next) => {
+        session.dialogData.appointment.funds4schools = results.response;
+        if (results.response) {
+            session.send("Thank you for your generosity :)");
+        } else {
+            session.send("Thank you.")
+        }
+
+        session.send(JSON.stringify(session.dialogData.appointment));
+        session.endDialogWithResult({ response: session.dialogData.appointment });
     }
 ]
