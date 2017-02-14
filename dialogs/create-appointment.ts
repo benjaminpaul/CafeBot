@@ -66,7 +66,7 @@ export const dialog : builder.IDialogWaterfallStep[] = [
                 session.send("Please give me a valid address");
                 next({ resumed: builder.ResumeReason.back });
             } else {
-                new builder.Prompts.number(session, "What is your contact telephone number?");
+                new builder.Prompts.text(session, "What is your contact telephone number?");
             }
         }
     },
@@ -90,7 +90,11 @@ export const dialog : builder.IDialogWaterfallStep[] = [
             session.send("Thank you.")
         }
 
-        session.send(JSON.stringify(session.dialogData.appointment));
-        session.endDialogWithResult({ response: session.dialogData.appointment });
+        var message = "Here are the details of your collection:\n\n**Collect On:** " + session.dialogData.appointment.collectionDay + "\n\n";
+        message = message + "**From Address:** " + session.dialogData.appointment.address + "\n\n";
+        message = message + "**Contact Number:** " + session.dialogData.appointment.contactNumber + "\n\n";
+        message = message + "**Funds 4 Schools:** " + session.dialogData.appointment.funds4schools ? "Yes" : "No"; 
+
+        new builder.Prompts.confirm(session, message);
     }
 ]
