@@ -53,7 +53,7 @@ exports.dialog = [
     },
     function (session, results, next) {
         session.send("Thanks");
-        session.send(results.response.entity);
+        session.send(JSON.stringify(results));
     }
 ];
 //# sourceMappingURL=create-appointment.js.map

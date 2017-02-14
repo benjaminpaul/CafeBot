@@ -52,6 +52,6 @@ export const dialog : builder.IDialogWaterfallStep[] = [
     },
     (session, results, next) => {
         session.send("Thanks");
-        session.send(results.response.entity);
+        session.send(JSON.stringify(results));
     }
 ]
