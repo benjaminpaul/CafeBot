@@ -1,4 +1,5 @@
 "use strict";
+var email_service_1 = require("./../services/email-service");
 var postcode_service_1 = require("./../services/postcode-service");
 var outlets_1 = require("./outlets");
 var builder = require("botbuilder");
@@ -103,6 +104,7 @@ exports.dialog = [
         new builder.Prompts.confirm(session, message);
     },
     function (session, results, next) {
+        var s = new email_service_1.EmailService().sendAppointmentEmail(session.dialogData.appointment);
         session.send("Great! Thank you.");
     }
 ];

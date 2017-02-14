@@ -1,3 +1,4 @@
+import { EmailService } from './../services/email-service';
 import { PostcodeService } from './../services/postcode-service';
 import { CancelAppointment } from './cancel-appointment';
 import { Outlets } from './outlets';
@@ -100,6 +101,7 @@ export const dialog : builder.IDialogWaterfallStep[] = [
         new builder.Prompts.confirm(session, message);
     },
     (session, results, next) => {
+        var s = new EmailService().sendAppointmentEmail(session.dialogData.appointment);
         session.send("Great! Thank you.");
     }
 ]
