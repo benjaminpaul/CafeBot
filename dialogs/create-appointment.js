@@ -11,7 +11,8 @@ exports.dialog = [
     function (session, results, next) {
         if (results.response) {
             session.dialogData.appointment.type = results.response;
-            if (session.dialogData.appointment.type == "Drop Off") {
+            session.send(results.response);
+            if (session.dialogData.appointment.type == "drop off") {
                 session.send("No problem at all, we have a number of outlets you can visit, let me just get them for you.");
                 var reply = new builder.Message(session)
                     .attachmentLayout(builder.AttachmentLayout.carousel)

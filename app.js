@@ -38,7 +38,6 @@ intents.matches("AppointmentCancel", new cancel_appointment_1.CancelAppointment(
 intents.matches("BuyingItemsList", new buying_items_1.BuyingItems().dialog());
 intents.matches("ContactDetails", new contact_details_1.ContactDetails().dialog());
 intents.matches("Thank", new thanks_1.Thanks().dialog());
-intents.matches("", createAppointments.dialog);
 intents.matches("OrganiseCollection", createAppointments.dialog);
 bot.dialog("/OrganiseCollection", [
     function (session, args, next) {

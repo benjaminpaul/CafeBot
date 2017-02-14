@@ -48,7 +48,6 @@ intents.matches("AppointmentCancel", new CancelAppointment().dialog());
 intents.matches("BuyingItemsList", new BuyingItems().dialog());
 intents.matches("ContactDetails", new ContactDetails().dialog());
 intents.matches("Thank", new Thanks().dialog());
-intents.matches("", createAppointments.dialog);
 
 //////////////////////////////////////////////
 // Organise a collection
