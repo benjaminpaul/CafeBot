@@ -94,7 +94,10 @@ export const dialog : builder.IDialogWaterfallStep[] = [
         message = message + "**From Address:** " + session.dialogData.appointment.address + "\n\n";
         message = message + "**Contact Number:** " + session.dialogData.appointment.contactNumber + "\n\n";
         message = message + "**Funds 4 Schools:** " + session.dialogData.appointment.funds4schools ? "Yes" : "No"; 
-
+        message = message = "\n\nIs this ok?";
         new builder.Prompts.confirm(session, message);
+    },
+    (session, results, next) => {
+        session.send("Great! Thank you.");
     }
 ]
