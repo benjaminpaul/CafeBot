@@ -69,6 +69,7 @@ exports.dialog = [
                 next({ resumed: builder.ResumeReason.back });
             }
             else {
+                session.dialogData.appointment.address = address;
                 new builder.Prompts.text(session, "What is your contact telephone number?");
             }
         }
