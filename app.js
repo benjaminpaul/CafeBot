@@ -7,6 +7,7 @@ var greeting_1 = require("./dialogs/greeting");
 var collection_area_1 = require("./dialogs/collection-area");
 var prices_1 = require("./dialogs/prices");
 var outlets_1 = require("./dialogs/outlets");
+var createAppointments = require("./dialogs/create-appointment");
 var postcode_service_1 = require("./services/postcode-service");
 var restify = require("restify");
 var builder = require("botbuilder");
@@ -37,19 +38,8 @@ intents.matches("AppointmentCancel", new cancel_appointment_1.CancelAppointment(
 intents.matches("BuyingItemsList", new buying_items_1.BuyingItems().dialog());
 intents.matches("ContactDetails", new contact_details_1.ContactDetails().dialog());
 intents.matches("Thank", new thanks_1.Thanks().dialog());
-intents.matches("OrganiseCollection", [
-    function (session, args, next) {
-        var postcode = builder.EntityRecognizer.findEntity(args.entities, "Postcode");
-        if (postcode) {
-            session.userData.latestPostcode = postcode.entity;
-        }
-        session.send("No problem, lets get a little information from you...");
-        session.beginDialog("/OrganiseCollection", session.dialogData.collection);
-    },
-    function (session, results) {
-        session.send("Thank you, we have your details and will see you soon.");
-    }
-]);
+intents.matches("", createAppointments.dialog);
+intents.matches("OrganiseCollection", createAppointments.dialog);
 bot.dialog("/OrganiseCollection", [
     function (session, args, next) {
         session.dialogData.collection = args || {};

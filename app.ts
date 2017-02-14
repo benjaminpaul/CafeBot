@@ -6,7 +6,8 @@ import { Greeting } from './dialogs/greeting';
 import { CollectionAreas } from './dialogs/collection-area';
 import { Prices } from './dialogs/prices';
 import { Outlets } from './dialogs/outlets';
-import { PostcodeService } from './services/postcode-service';
+import * as createAppointments from "./dialogs/create-appointment";
+import { PostcodeService } from './services/postcode-service'; 
 import * as restify from "restify";
 import * as builder from "botbuilder";
 import * as data from "./data";
@@ -47,23 +48,12 @@ intents.matches("AppointmentCancel", new CancelAppointment().dialog());
 intents.matches("BuyingItemsList", new BuyingItems().dialog());
 intents.matches("ContactDetails", new ContactDetails().dialog());
 intents.matches("Thank", new Thanks().dialog());
+intents.matches("", createAppointments.dialog);
 
 //////////////////////////////////////////////
 // Organise a collection
 //////////////////////////////////////////////
-intents.matches("OrganiseCollection", [
-    (session, args, next) => {
-        var postcode = builder.EntityRecognizer.findEntity(args.entities, "Postcode");
-        if (postcode) {
-            session.userData.latestPostcode = postcode.entity;
-        }
-        session.send("No problem, lets get a little information from you...");
-        session.beginDialog("/OrganiseCollection", session.dialogData.collection);
-    },
-    (session, results) => {
-        session.send("Thank you, we have your details and will see you soon.")
-    }
-]);
+intents.matches("OrganiseCollection", createAppointments.dialog);
 
 //////////////////////////////////////////////
 // Collection dialog.

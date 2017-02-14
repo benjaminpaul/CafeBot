@@ -13,7 +13,7 @@ export class Outlets {
         ]
     }
 
-    private static getOutletCards(session) : builder.ThumbnailCard[] {
+    public static getOutletCards(session) : builder.ThumbnailCard[] {
         var logo = new builder.CardImage(session).url("https://static.wixstatic.com/media/b93b43_864e7ab4be334d6da31a6edbcb24a43b~mv2.jpg/v1/fill/w_560,h_246,al_c,q_80,usm_0.66_1.00_0.01/b93b43_864e7ab4be334d6da31a6edbcb24a43b~mv2.webp").alt("Cash 4 Clothes").toImage();
         return [
             new builder.ThumbnailCard(session)
