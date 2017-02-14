@@ -12,7 +12,6 @@ exports.dialog = [
     },
     function (session, results, next) {
         if (results.response) {
-            session.send(results.response.entity);
             session.dialogData.appointment.type = results.response.entity;
             if (results.response.entity === "Drop Off") {
                 session.send("No problem at all, we have a number of outlets you can visit, let me just get them for you.");

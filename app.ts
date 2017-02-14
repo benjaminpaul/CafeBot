@@ -49,3 +49,8 @@ intents.matches("BuyingItemsList", new BuyingItems().dialog());
 intents.matches("ContactDetails", new ContactDetails().dialog());
 intents.matches("Thank", new Thanks().dialog());
 intents.matches("OrganiseCollection", createAppointments.dialog);
+intents.matches("Help", [
+    (session, args, next) => {
+        session.send("**You can ask me things like...**\n\nI have some clothes I want you to collect\n\nHow much do you pay?\n\nWhat do you accept?\n\nWhere are your outlets?\n\nWhat is your phone number?\n\n\n\nGive it a try :)");
+    }
+])

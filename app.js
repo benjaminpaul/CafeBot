@@ -38,4 +38,9 @@ intents.matches("BuyingItemsList", new buying_items_1.BuyingItems().dialog());
 intents.matches("ContactDetails", new contact_details_1.ContactDetails().dialog());
 intents.matches("Thank", new thanks_1.Thanks().dialog());
 intents.matches("OrganiseCollection", createAppointments.dialog);
+intents.matches("Help", [
+    function (session, args, next) {
+        session.send("**You can ask me things like...**\n\nI have some clothes I want you to collect\n\nHow much do you pay?\n\nWhat do you accept?\n\nWhere are your outlets?\n\nWhat is your phone number?\n\n\n\nGive it a try :)");
+    }
+]);
 //# sourceMappingURL=app.js.map
