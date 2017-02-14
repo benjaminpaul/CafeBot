@@ -39,6 +39,7 @@ exports.dialog = [
                     session.endDialogWithResult({ response: session.dialogData.appointment });
                 }
                 else {
+                    session.dialogData.appointment.postcode = postcode;
                     new builder.Prompts.choice(session, "What day would you like us to collect it?", delivery.collectionDays);
                 }
             }
@@ -46,8 +47,13 @@ exports.dialog = [
     },
     function (session, results, next) {
         if (results.response) {
+            var delivery = new postcode_service_1.PostcodeService().getSomething(session.dialogData.appointment.postcode);
+            new builder.Prompts.confirm(session, "We collect that day between the hours of " + delivery.times + ", is that ok?");
+        }
+    },
+    function (session, results, next) {
+        if (results.response) {
             session.send(results.response.entity);
-            session.endDialogWithResult({ response: session.dialogData.appointment });
         }
     }
 ];

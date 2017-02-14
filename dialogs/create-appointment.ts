@@ -38,6 +38,7 @@ export const dialog : builder.IDialogWaterfallStep[] = [
                     session.send("Sorry, but it does not look like we collect from that postcode however you can always drop it off to one of our outlets.");
                     session.endDialogWithResult({ response: session.dialogData.appointment });
                 } else {
+                    session.dialogData.appointment.postcode = postcode;
                     new builder.Prompts.choice(session, "What day would you like us to collect it?", delivery.collectionDays);
                 }
             }
@@ -45,8 +46,13 @@ export const dialog : builder.IDialogWaterfallStep[] = [
     },
     (session, results, next) => {
         if (results.response) {
-            session.send(results.response.entity);
-            session.endDialogWithResult({ response: session.dialogData.appointment });
+            var delivery = new PostcodeService().getSomething(session.dialogData.appointment.postcode);
+            new builder.Prompts.confirm(session, "We collect that day between the hours of " + delivery.times + ", is that ok?");
         }
-    } 
+    },
+    (session, results, next) => {
+        if (results.response) {
+            session.send(results.response.entity);
+        }
+    }
 ]
