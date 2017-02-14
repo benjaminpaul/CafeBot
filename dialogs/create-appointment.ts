@@ -90,11 +90,12 @@ export const dialog : builder.IDialogWaterfallStep[] = [
             session.send("Thank you.")
         }
 
-        var message = "Here are the details of your collection:\n\n**Collect On:** " + session.dialogData.appointment.collectionDay + "\n\n";
-        message = message + "**From Address:** " + session.dialogData.appointment.address + "\n\n";
-        message = message + "**Contact Number:** " + session.dialogData.appointment.contactNumber + "\n\n";
-        message = message + "**Funds 4 Schools:** " + session.dialogData.appointment.funds4schools ? "Yes" : "No"; 
-        message = message + "\n\nIs this ok?";
+        var message = "Here are the details of your collection:\n\n**Collect On:** " + session.dialogData.appointment.collectionDay + "\n\n"
+            + "**From Address:** " + session.dialogData.appointment.address + "\n\n"
+            + "**Contact Number:** " + session.dialogData.appointment.contactNumber + "\n\n"
+            + "**Funds 4 Schools:** " + session.dialogData.appointment.funds4schools ? "Yes" : "No"
+            + "\n\nIs this ok?";
+            
         new builder.Prompts.confirm(session, message);
     },
     (session, results, next) => {
