@@ -46,6 +46,8 @@ export const dialog : builder.IDialogWaterfallStep[] = [
     },
     (session, results, next) => {
         if (results.response) {
+            var collectionDay = results.response.entity;
+            session.dialogData.appointment.collectionDay = collectionDay;
             var delivery = new PostcodeService().getSomething(session.dialogData.appointment.postcode);
             new builder.Prompts.confirm(session, "We collect that day between the hours of " + delivery.times + ", is that ok?");
         }
